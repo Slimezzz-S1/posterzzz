@@ -8,9 +8,9 @@ export default function HeaderClient({userId} : {userId : string}) {
     return (
         <div className="sticky top-0 left-0">
             <header className="flex justify-between items-center border-b bg-background p-4 min-h-22">
-                <h1 className="text-4xl">
+                <a className="text-4xl" href="/">
                     PosterZZZ
-                </h1>
+                </a>
 
                 {isOpened ? <p> {userId} </p> : <button onClick={() => setIsOpened(true)}> Open your anon id? </button>}
             </header>

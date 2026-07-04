@@ -20,15 +20,16 @@ params}: {
   return (
     <>
         <Header />
-
-        <div className="border p-4">
+        
+        <section className="my-8 flex flex-col gap-8 px-4 lg:px-0">
+          <div className="border p-4">
 
           <h1 className="text-6xl">
             {post.title}
           </h1>
 
-          <p className="min-h-26 py-4 border-y my-4">
-            {post.content}
+          <p className="min-h-26 py-4 border-y my-4 whitespace-pre-wrap">
+            {post.content.replace(/\\n/g, "\n")}
           </p>
 
           <div>
@@ -49,6 +50,7 @@ params}: {
             </p>
           </div>
         </div>
+        </section>
     </>
   );
 }

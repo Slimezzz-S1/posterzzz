@@ -12,32 +12,31 @@ export interface postProps {
 export default function Post({id, authorId, title, content, likes, createdAt} : postProps) {
     return (
         <Link key={id} href={`/post/${id}`}>
-            <div className="flex flex-col border p-4 min-h-64">
+            <div className="flex flex-col border p-4 min-h-75">
                 <h1 className="text-3xl">
                     {title}
                 </h1>
 
-                <p className="flex-1">
-                    {content}
+                <p className="flex-1 whitespace-pre-wrap border-y my-4 py-4">
+                    {content.replace(/\\n/g, "\n")}
                 </p>
 
-                <div className="flex flex-col gap-0 items-e border-t pt-2">
+                <div className="flex flex-col gap-0 items-e pt-2">
                     <p>
-                    Likes : {likes}
+                        Post ID : {id}
                     </p>
 
                     <p>
-                    anon ID : {authorId}
+                        Anon ID : {authorId}
                     </p>
 
                     <p>
-                    post ID : {id}
+                        Created at {createdAt.toLocaleDateString()}
                     </p>
 
                     <p>
-                    Created at {createdAt.toLocaleDateString()}
+                        Likes : {likes}
                     </p>
-
                 </div>
             </div>
         </Link>

@@ -10,7 +10,6 @@ import MockPosts from "./faker";
 
 
 export default async function Home() {
-  const cookieStore = await cookies()
   const posts = await prisma.post.findMany()
 
   return (
