@@ -26,7 +26,6 @@ export default function MockPosts() {
             likes : faker.number.int({ min : 0, max : 64 })
         }))
         
-
         setPosts(generated)
     }, [])
 

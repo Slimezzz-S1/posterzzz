@@ -1,12 +1,11 @@
-import prisma from "@/lib/db";
-import { cookies } from "next/headers";
-import Header from "./header";
+import prisma from "@/lib/db"
+import { cookies } from "next/headers"
+import Header from "./header"
 
-import Post from "./post";
+import Post from "./post"
 
-import CreatePost from "./createPost";
-import SearchPost from "./searchPost";
-import MockPosts from "./faker";
+import CreatePost from "./createPost"
+import SearchPost from "./searchPost"
 
 
 export default async function Home() {
@@ -33,8 +32,6 @@ export default async function Home() {
             createdAt={post.createdAt}
           />
         ))}
-
-        <MockPosts />
         
       </section>
     </div>

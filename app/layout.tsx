@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { GeistPixelSquare } from "geist/font/pixel";
+import type { Metadata } from "next"
+import "./globals.css"
+import { GeistPixelSquare } from "geist/font/pixel"
 
 export const metadata: Metadata = {
   title: "PosterZZZ",

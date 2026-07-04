@@ -18,7 +18,9 @@ export default function CreatePost() {
                 ref={formRef}
                 action={async (formData) => {
                     await createPost(formData)
+
                     formRef.current?.reset()
+                    setIsCreating(false)
                 }}
                 className="border col-span-2 flex flex-col p-4 gap-4">
                     <input type="text" name="title" placeholder="Title" className="p-2 border" />

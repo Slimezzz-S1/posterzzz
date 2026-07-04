@@ -1,8 +1,8 @@
 "use server"
 
-import prisma from "@/lib/db";
-import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import prisma from "@/lib/db"
+import { revalidatePath } from "next/cache"
+import { cookies } from "next/headers"
 
 export async function createPost(formData : FormData) {
     const title : string = formData.get("title") as string
@@ -15,7 +15,11 @@ export async function createPost(formData : FormData) {
     }
 
     await prisma.post.create({
-        data : {title, content, authorId : userId}
+        data : {
+            title : title,
+            content : content,
+            authorId : userId
+        }
     })
 
     revalidatePath("/")
