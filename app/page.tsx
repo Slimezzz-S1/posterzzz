@@ -1,20 +1,28 @@
 import prisma from "@/lib/db";
-
-import Header from "./header";
 import { cookies } from "next/headers";
-import MockPosts from "./faker";
+import Header from "./header";
+
 import Post from "./post";
+
+import CreatePost from "./createPost";
+import SearchPost from "./searchPost";
+import MockPosts from "./faker";
+
 
 export default async function Home() {
   const cookieStore = await cookies()
-  const userId = cookieStore.get("user_id")?.value
   const posts = await prisma.post.findMany()
 
   return (
-    <div className="flex flex-col min-h-screen max-w-xl w-screen mx-auto">
-      <Header userId={userId ?? "can't get one"} /> 
+    <div className="flex flex-col min-h-screen max-w-5xl w-screen mx-auto">
+      <Header />
 
-      <section className="my-8 flex flex-col gap-8">
+      <section className="my-8 flex flex-col gap-8 px-4 lg:px-0">
+        <div className="grid grid-cols-2 gap-4">
+          <CreatePost />
+          <SearchPost />
+        </div>
+
         {posts.map((post) => (
           <Post
             key={post.id}
@@ -26,7 +34,9 @@ export default async function Home() {
             createdAt={post.createdAt}
           />
         ))}
+
         <MockPosts />
+        
       </section>
     </div>
   )
