@@ -5,7 +5,19 @@ import { createPost } from "./actions"
 
 export default function CreatePost() {
     const formRef = useRef<HTMLFormElement>(null)
+    const createRef = useRef<HTMLTextAreaElement>(null)
     const [isCreating, setIsCreating] = useState(false)
+
+    function handleInput() {
+        const el = createRef.current
+
+        if (!el) {
+            return
+        }
+
+        el.style.height = "auto"
+        el.style.height = `${el.scrollHeight}px`
+    }
 
     return (
         <>
@@ -24,11 +36,14 @@ export default function CreatePost() {
                 }}
                 className="border col-span-2 flex flex-col p-4 gap-4">
                     <input type="text" name="title" placeholder="Title" className="p-2 border" />
-                    {
-                    //    <input type="text" name="content" placeholder="What do you want to say?" className="p-2 border" />
-                    }
 
-                    <textarea name="content" className="border p-2" placeholder="What do you want to say" />
+                    <textarea
+                        ref={createRef}
+                        name="content"
+                        className="border p-2 resize-none"
+                        placeholder="What do you want to say"
+                        onInput={handleInput}
+                    />
 
                     <button type="submit" className="border p-2 cursor-pointer">
                         Submit

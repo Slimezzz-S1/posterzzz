@@ -12,7 +12,7 @@ export default function HeaderClient({userId} : {userId : string}) {
                     PosterZZZ
                 </a>
 
-                {isOpened ? <p> {userId} </p> : <button onClick={() => setIsOpened(true)}> Open your anon id? </button>}
+                {isOpened ? <p className="text-right"> {userId} </p> : <button onClick={() => setIsOpened(true)}> Show your anon id? </button>}
             </header>
         </div>
     )

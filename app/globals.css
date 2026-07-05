@@ -17,5 +17,5 @@ html {
 }
 
 body {
-  @apply relative bg-background text-foreground w-screen min-h-screen
+  @apply relative bg-background text-foreground w-screen min-h-screen 
 }

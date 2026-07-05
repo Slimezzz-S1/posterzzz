@@ -14,6 +14,10 @@ datasource db {
 
 model User {
   id String @id @default(uuid())
+  password String @default("")
+  createdAt DateTime
+  posts Post[]
+  replies Reply[]
 }
 
 model Post {
@@ -23,5 +27,21 @@ model Post {
   content String
   likes Int @default(0)
   createdAt DateTime @default(now())
+  isUnique Boolean @default(false)
+  replies Reply[]
+  author User @relation(fields: [authorId], references: [id])
 }
 
+model Reply {
+  id String @id @default(uuid())
+  authorId String @default(uuid())
+  content String
+  likes Int @default(0)
+  createdAt DateTime @default(now())
+  postId String
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id])
+}
+
+// npx prisma db push
+// npx prisma generate

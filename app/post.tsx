@@ -1,44 +1,57 @@
-import Link from "next/link"
+import prisma from "@/lib/db";
+import PostClient, { postProps } from "./postClient";
+import { Prisma } from "./generated/prisma/client";
 
-export interface postProps {
-    id : string
-    authorId : string
-    title : string
-    content : string
-    likes : number
-    createdAt : Date
+interface postServerProps extends postProps {
+    _count? : number
 }
 
-export default function Post({id, authorId, title, content, likes, createdAt} : postProps) {
-    return (
-        <Link key={id} href={`/post/${id}`}>
-            <div className="flex flex-col border p-4 min-h-75">
-                <h1 className="text-3xl">
-                    {title}
-                </h1>
+export default async function Posts() {
+    const specialPosts = await prisma.post.findMany({
+        where : {
+            isUnique : true
+        },
+        include : {
+            _count : {
+                select : {
+                    replies : true
+                }
+            }
+        }
+    })
 
-                <p className="flex-1 whitespace-pre-wrap border-y my-4 py-4">
-                    {content.replace(/\\n/g, "\n")}
-                </p>
+    const regularPosts = await prisma.post.findMany({
+        where : {
+            isUnique : false
+        },
+        include : {
+            _count : {
+                select : {
+                    replies : true
+                }
+            }
+        },
+        orderBy : {
+            createdAt : "desc"
+        }
+    })
 
-                <div className="flex flex-col gap-0 items-e pt-2">
-                    <p>
-                        Post ID : {id}
-                    </p>
+    const posts = [
 
-                    <p>
-                        Anon ID : {authorId}
-                    </p>
+        ...specialPosts,
+        ...regularPosts
+    ]
 
-                    <p>
-                        Created at {createdAt.toLocaleDateString()}
-                    </p>
-
-                    <p>
-                        Likes : {likes}
-                    </p>
-                </div>
-            </div>
-        </Link>
-    )
+    return posts.map((post) => (
+        <PostClient
+            key={post.id}
+            id={post.id}
+            authorId={post.authorId}
+            title={post.title}
+            content={post.content}
+            likes={post.likes}
+            createdAt={post.createdAt}
+            repliesAmount={post._count.replies}
+        />
+    ))
 }

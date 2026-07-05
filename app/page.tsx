@@ -2,38 +2,34 @@ import prisma from "@/lib/db"
 import { cookies } from "next/headers"
 import Header from "./header"
 
-import Post from "./post"
+import Posts from "./post"
 
 import CreatePost from "./createPost"
 import SearchPost from "./searchPost"
 
+import Slime from "./slime"
 
-export default async function Home() {
-  const posts = await prisma.post.findMany()
+export default async function Home({
+  searchParams,
+}: {
+  searchParams : Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const params = await searchParams
 
   return (
-    <div className="flex flex-col min-h-screen max-w-5xl w-screen mx-auto">
-      <Header />
-
+    <>
       <section className="my-8 flex flex-col gap-8 px-4 lg:px-0">
+        {params.lovesslime && (
+          <Slime />
+        )}
         <div className="grid grid-cols-2 gap-4">
           <CreatePost />
           <SearchPost />
         </div>
 
-        {posts.map((post) => (
-          <Post
-            key={post.id}
-            id={post.id}
-            authorId={post.authorId}
-            title={post.title}
-            content={post.content}
-            likes={post.likes}
-            createdAt={post.createdAt}
-          />
-        ))}
+        <Posts />
         
       </section>
-    </div>
+    </>
   )
 }
