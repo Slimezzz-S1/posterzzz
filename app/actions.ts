@@ -103,11 +103,31 @@ export async function login(password : string, wantsRevert : boolean) {
 //     return true
 // }
 
+export async function createUser(userId : string) {
+    const existingUserId = await prisma.user.findUnique({
+        where : {
+            id : userId
+        }
+    })
+
+    if (!existingUserId) {
+        prisma.user.create({
+            data : {
+                id : userId
+            }
+        })
+    }
+
+    return
+}
+
 export async function createPost(formData : FormData) {
     const title : string = formData.get("title") as string
     const content : string = formData.get("content") as string
     const cookieStore = await cookies()
     const userId = cookieStore.get("user_id")?.value ?? "Who dis"
+
+    createUser(userId)
     
     if (!title || !content) {
         return
@@ -128,6 +148,8 @@ export async function createReply(formData : FormData, postId : string) {
     const content : string = formData.get("content") as string
     const cookieStore = await cookies()
     const userId = cookieStore.get("user_id")?.value ?? "Who dis"
+
+    createUser(userId)
 
     if (!content) {
         return
