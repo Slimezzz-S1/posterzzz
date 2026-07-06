@@ -42,7 +42,7 @@ export default function Slime() {
 
             {isOpened && (
                 <div
-                    className="flex flex-col gap@-[inherit] border p-4"
+                    className="flex flex-col gap-[inherit] border p-4"
                 >
                     {!confirm && (
                         <>
