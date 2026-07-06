@@ -13,11 +13,22 @@ export default async function PostPage({
   const post = await prisma.post.findUnique({
     where : {
       id : postid
+    },
+    include : {
+      _count : {
+        select : {
+          replies : true
+        }
+      }
     }
   })
+
   const postReplies = await prisma.reply.findMany({
     where : {
-      authorId : postid
+      postId : postid
+    },
+    orderBy : {
+      createdAt : "desc"
     }
   })
 
@@ -36,6 +47,7 @@ export default async function PostPage({
           likes={post.likes}
           isMain={true}
           replies={postReplies}
+          repliesAmount={post._count.replies}
         />
       </section>
   )
