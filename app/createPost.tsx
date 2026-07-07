@@ -34,7 +34,7 @@ export default function CreatePost() {
                     formRef.current?.reset()
                     setIsCreating(false)
                 }}
-                className="border col-span-2 flex flex-col p-4 gap-4">
+                className="border col-span-3 flex flex-col p-4 gap-4">
                     <input type="text" name="title" placeholder="Title" className="p-2 border" />
 
                     <textarea

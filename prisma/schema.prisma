@@ -18,6 +18,7 @@ model User {
   createdAt DateTime @default(now())
   posts Post[]
   replies Reply[]
+  description String @default("")
 }
 
 model Post {

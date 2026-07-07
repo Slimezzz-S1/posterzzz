@@ -37,7 +37,7 @@ export default async function PostPage({
   }
 
   return (
-      <section className="my-8 flex flex-col gap-8 px-4 lg:px-0">
+      <>
         <PostClient
           id={post.id}
           authorId={post.authorId}
@@ -49,6 +49,6 @@ export default async function PostPage({
           replies={postReplies}
           repliesAmount={post._count.replies}
         />
-      </section>
+      </>
   )
 }

@@ -20,7 +20,9 @@ export default function RootLayout({ children }: Readonly<{ children : React.Rea
         <div className="flex flex-col min-h-screen max-w-5xl w-screen mx-auto">
           <Header />
 
-          {children}
+          <div className="my-8 flex flex-col gap-8 px-4 lg:px-0">
+            {children}
+          </div>
 
           <Footer />
         </div>

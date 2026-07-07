@@ -23,12 +23,12 @@ export default function SearchPost() {
                 <input
                     type="text"
                     placeholder="Search Post UUID"
-                    className="border p-2 col-span-2"
+                    className="border p-2 col-span-3"
                     value={searchUuid}
                     onChange={(e) => {setSearchUuid(e.target.value)}}
                 />
 
-                <button className="p-2 border col-span-2" onClick={handleSearch}> Search </button>
+                <button className="p-2 border col-span-3" onClick={handleSearch}> Search </button>
                 </>
             )}
         </>

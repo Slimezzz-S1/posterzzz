@@ -6,10 +6,53 @@ interface postServerProps extends postProps {
     _count? : number
 }
 
-export default async function Posts() {
+interface postsProps {
+    fromUserId? : string
+    sortDate? : "desc" | "asc",
+}
+
+export default async function Posts({ fromUserId, sortDate } : postsProps) {
+    if (!fromUserId) {
+        const specialPosts = await prisma.post.findMany({
+            where : {
+                isUnique : true,
+                authorId : "0"
+            },
+            include : {
+                _count : {
+                    select : {
+                        replies : true
+                    }
+                }
+            }
+        })
+
+        const regularPosts = await prisma.post.findMany({
+            where : {
+                isUnique : false,
+            },
+            include : {
+                _count : {
+                    select : {
+                        replies : true
+                    }
+                }
+            },
+            orderBy : {
+                createdAt : sortDate ?? "desc"
+            }
+        })
+
+        const posts = [
+            ...specialPosts,
+            ...regularPosts
+        ]
+    }
+
     const specialPosts = await prisma.post.findMany({
         where : {
-            isUnique : true
+            isUnique : true,
+            authorId : fromUserId
         },
         include : {
             _count : {
@@ -22,7 +65,8 @@ export default async function Posts() {
 
     const regularPosts = await prisma.post.findMany({
         where : {
-            isUnique : false
+            isUnique : false,
+            authorId : fromUserId
         },
         include : {
             _count : {
@@ -32,12 +76,11 @@ export default async function Posts() {
             }
         },
         orderBy : {
-            createdAt : "desc"
+            createdAt : sortDate ?? "desc"
         }
     })
 
     const posts = [
-
         ...specialPosts,
         ...regularPosts
     ]

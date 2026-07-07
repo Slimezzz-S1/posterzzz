@@ -6,6 +6,7 @@ import Posts from "./post"
 
 import CreatePost from "./createPost"
 import SearchPost from "./searchPost"
+import SearchUser from "./searchuser"
 
 import Slime from "./slime"
 
@@ -18,18 +19,16 @@ export default async function Home({
 
   return (
     <>
-      <section className="my-8 flex flex-col gap-8 px-4 lg:px-0">
-        {params.lovesslime == "true" && (
-          <Slime />
-        )}
-        <div className="grid grid-cols-2 gap-4">
-          <CreatePost />
-          <SearchPost />
-        </div>
+      {params.lovesslime == "true" && (
+        <Slime />
+      )}
+      <div className="grid grid-cols-3 gap-4">
+        <CreatePost />
+        <SearchPost />
+        <SearchUser />
+      </div>
 
-        <Posts />
-        
-      </section>
+      <Posts />
     </>
   )
 }
