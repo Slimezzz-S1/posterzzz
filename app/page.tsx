@@ -1,9 +1,4 @@
-import prisma from "@/lib/db"
-import { cookies } from "next/headers"
-import Header from "./header"
-
 import Posts from "./post"
-
 import CreatePost from "./createPost"
 import SearchPost from "./searchPost"
 import SearchUser from "./searchuser"

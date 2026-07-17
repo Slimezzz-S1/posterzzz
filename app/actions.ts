@@ -1,10 +1,8 @@
 "use server"
 
 import prisma from "@/lib/db"
-import { tr } from "@faker-js/faker"
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
-import { PassThrough } from "stream"
 
 const ADMIN_PASSWORD = "iReallyReallyLoveSlime"
 
